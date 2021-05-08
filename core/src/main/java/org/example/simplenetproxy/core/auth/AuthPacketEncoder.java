@@ -2,7 +2,6 @@ package org.example.simplenetproxy.core.auth;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import org.example.simplenetproxy.core.protocol.Packet;
 
@@ -19,7 +18,7 @@ public class AuthPacketEncoder extends MessageToMessageEncoder<AuthPacket> {
         packet.setId(0);
         packet.setType(TYPE_AUTH);
         packet.setState(STATE_OK);
-        ByteBuf data = msg.getBuf();
+        ByteBuf data = msg.toByteBuf();
         packet.setLength(data.readableBytes());
         packet.setBody(data);
         out.add(packet);

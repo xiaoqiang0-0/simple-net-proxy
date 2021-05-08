@@ -19,6 +19,6 @@ public class ServerLocalMsgHandler extends SimpleChannelInboundHandler<ProxyPack
         Channel channel = transformManagement.getRemoteChannel(msg.getRemoteChannelId());
         //TODO 远程通道不存在异常处理
 
-        channel.writeAndFlush(msg.getBody());
+        channel.writeAndFlush(msg);
     }
 }

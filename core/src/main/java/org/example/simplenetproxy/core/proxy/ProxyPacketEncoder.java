@@ -20,5 +20,6 @@ public class ProxyPacketEncoder extends MessageToMessageEncoder<ProxyPacket> {
         packet.setState(msg.getState() == PROXY_MSG_STATE_SUCCESS ? STATE_OK : STATE_ERROR);
         packet.setLength(SHORT_CHANNEL_ID_LEN + 1 + 4 + msg.getLength());
         packet.setBody(msg.toByteBuf());
+        out.add(packet);
     }
 }

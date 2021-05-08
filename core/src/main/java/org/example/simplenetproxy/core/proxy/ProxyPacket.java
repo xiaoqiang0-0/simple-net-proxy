@@ -56,11 +56,13 @@ public class ProxyPacket {
     }
 
     public CompositeByteBuf toByteBuf() {
-        CompositeByteBuf buf = Unpooled.compositeBuffer();
+        CompositeByteBuf buf = Unpooled.compositeBuffer(2);
         ByteBuf header = Unpooled.buffer();
         header.writeCharSequence(remoteChannelId, StandardCharsets.UTF_8);
         header.writeByte(state);
         header.writeInt(length);
+//        buf.writeBytes(header);
+//        buf.writeBytes(body);
         buf.addComponent(true, header);
         buf.addComponent(true, body);
         return buf;

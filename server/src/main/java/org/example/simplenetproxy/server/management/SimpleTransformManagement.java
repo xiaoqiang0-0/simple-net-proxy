@@ -32,7 +32,7 @@ public class SimpleTransformManagement implements TransformManagement {
 
     @Override
     public void registerRemoteChannel(Channel channel) {
-        remoteChannelCacheMap.put(channel.id().asLongText(), channel);
+        remoteChannelCacheMap.put(channel.id().asShortText(), channel);
     }
 
 

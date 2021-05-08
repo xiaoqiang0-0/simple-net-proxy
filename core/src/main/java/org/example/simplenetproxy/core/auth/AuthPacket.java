@@ -47,7 +47,7 @@ public class AuthPacket {
         this.message = message;
     }
 
-    public ByteBuf getBuf() throws JsonProcessingException {
+    public ByteBuf toByteBuf() throws JsonProcessingException {
         return Unpooled.wrappedBuffer(new ObjectMapper().writeValueAsString(this).getBytes(StandardCharsets.UTF_8));
     }
 }

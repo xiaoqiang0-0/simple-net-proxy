@@ -6,7 +6,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.example.simplenetproxy.core.server.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Async;
 
 import java.net.InetSocketAddress;
 

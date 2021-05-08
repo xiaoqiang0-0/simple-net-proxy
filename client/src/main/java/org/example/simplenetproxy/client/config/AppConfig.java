@@ -1,21 +1,16 @@
-package org.example.simplenetproxy.server;
+package org.example.simplenetproxy.client.config;
 
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import org.example.simplenetproxy.core.auth.AuthPacketCodec;
 import org.example.simplenetproxy.core.auth.AuthPacketDecoder;
 import org.example.simplenetproxy.core.auth.AuthPacketEncoder;
-import org.example.simplenetproxy.core.auth.UserRepository;
 import org.example.simplenetproxy.core.protocol.PacketCodec;
 import org.example.simplenetproxy.core.protocol.PacketDecoder;
 import org.example.simplenetproxy.core.protocol.PacketEncoder;
 import org.example.simplenetproxy.core.proxy.ProxyPacketCodec;
 import org.example.simplenetproxy.core.proxy.ProxyPacketDecoder;
 import org.example.simplenetproxy.core.proxy.ProxyPacketEncoder;
-import org.example.simplenetproxy.server.auth.SimpleUserRepository;
-import org.example.simplenetproxy.server.management.SimpleTransformManagement;
-import org.example.simplenetproxy.server.management.TransformManagement;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -23,28 +18,10 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
-
 @Configuration
 public class AppConfig {
     @Bean
-    @ConditionalOnMissingBean(UserRepository.class)
-    public UserRepository userRepository() {
-        return new SimpleUserRepository();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean(TransformManagement.class)
-    public TransformManagement transformManagement() {
-        return new SimpleTransformManagement();
-    }
-
-    @Bean
-    public EventLoopGroup parentGroup() {
-        return new NioEventLoopGroup();
-    }
-
-    @Bean
-    public EventLoopGroup childGroup() {
+    public EventLoopGroup eventLoopGroup() {
         return new NioEventLoopGroup();
     }
 

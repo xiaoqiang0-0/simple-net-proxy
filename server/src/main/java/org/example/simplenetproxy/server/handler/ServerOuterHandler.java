@@ -2,6 +2,7 @@ package org.example.simplenetproxy.server.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.example.simplenetproxy.core.proxy.ProxyPacket;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import static org.example.simplenetproxy.core.proxy.ProxyPacket.PROXY_MSG_STATE_SUCCESS;
 
+@ChannelHandler.Sharable
 @Component
 public class ServerOuterHandler extends SimpleChannelInboundHandler<ByteBuf> {
 
@@ -32,7 +34,8 @@ public class ServerOuterHandler extends SimpleChannelInboundHandler<ByteBuf> {
         proxyPacket.setRemoteChannelId(channelHandlerContext.channel().id().asShortText());
         proxyPacket.setState(PROXY_MSG_STATE_SUCCESS);
         proxyPacket.setLength(buf.readableBytes());
+        buf.retain();
         proxyPacket.setBody(buf);
-        channel.writeAndFlush(proxyPacket.toByteBuf());
+        channel.writeAndFlush(proxyPacket);
     }
 }
