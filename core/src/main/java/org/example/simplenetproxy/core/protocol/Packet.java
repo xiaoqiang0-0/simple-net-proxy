@@ -11,6 +11,8 @@ public class Packet {
     public static byte STATE_OK = 1;
     public static byte STATE_ERROR = 0;
 
+    public static int BODY_START_INDEX = 10;
+
     private int id;
     private byte type;
     private byte state;

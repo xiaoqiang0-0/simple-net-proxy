@@ -1,41 +1,36 @@
 package org.example.simplenetproxy.server.auth;
 
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.example.simplenetproxy.core.auth.AuthPacket;
 import org.example.simplenetproxy.core.auth.AuthPacketDecoder;
 import org.example.simplenetproxy.core.auth.User;
 import org.example.simplenetproxy.core.auth.UserRepository;
-import org.example.simplenetproxy.core.protocol.Packet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static org.example.simplenetproxy.core.protocol.Packet.*;
+import static org.example.simplenetproxy.core.auth.AuthPacket.RESULT_FAILED;
+import static org.example.simplenetproxy.core.auth.AuthPacket.RESULT_OK;
 
 @Component
 public class LocalAuthHandler extends SimpleChannelInboundHandler<AuthPacket> {
     private final Logger logger = LoggerFactory.getLogger(LocalAuthHandler.class);
 
-    private static final Packet AUTH_SUCCESS;
+    private static final AuthPacket AUTH_SUCCESS;
 
-    private static Packet getAuthFailedMsg(String msg) {
-        Packet p = new Packet();
-        p.setType(TYPE_AUTH);
-        p.setState(STATE_ERROR);
-        p.setBody(Unpooled.wrappedBuffer(msg.getBytes()));
-        p.setLength(p.getBody().readableBytes());
+    private static AuthPacket getAuthFailedMsg(String msg) {
+        AuthPacket p = new AuthPacket();
+        p.setResult(RESULT_FAILED);
+        p.setMessage(msg);
         return p;
     }
 
     static {
-        AUTH_SUCCESS = new Packet();
-        AUTH_SUCCESS.setType(TYPE_AUTH);
-        AUTH_SUCCESS.setState(STATE_OK);
-        AUTH_SUCCESS.setBody(Unpooled.wrappedBuffer("认证成功！".getBytes()));
-        AUTH_SUCCESS.setLength(AUTH_SUCCESS.getBody().readableBytes());
+        AUTH_SUCCESS = new AuthPacket();
+        AUTH_SUCCESS.setResult(RESULT_OK);
+        AUTH_SUCCESS.setMessage("认证成功！");
     }
 
     @Autowired

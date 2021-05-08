@@ -7,7 +7,7 @@ import org.example.simplenetproxy.core.auth.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
+
 
 import javax.annotation.PostConstruct;
 import java.io.*;
@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Repository
 public class SimpleUserRepository implements UserRepository {
     private final Logger logger = LoggerFactory.getLogger(SimpleUserRepository.class);
 

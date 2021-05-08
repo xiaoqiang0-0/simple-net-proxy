@@ -17,6 +17,8 @@ public class ServerLocalMsgHandler extends SimpleChannelInboundHandler<ProxyPack
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ProxyPacket msg) throws Exception {
         Channel channel = transformManagement.getRemoteChannel(msg.getRemoteChannelId());
+        //TODO 远程通道不存在异常处理
+
         channel.writeAndFlush(msg.getBody());
     }
 }

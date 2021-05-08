@@ -27,13 +27,8 @@ public class ManagementRestController {
 
     @GetMapping("/shutdown")
     public ResponseEntity<?> shutdown() {
-        try {
-            //TODO 停止服务
+        //TODO 停止服务
 
-            return ResponseEntity.ok("感谢您的使用，再见！");
-        } finally {
-            System.exit(1);
-            SpringApplication.exit(context);
-        }
+        return ResponseEntity.ok("感谢您的使用，再见！");
     }
 }
